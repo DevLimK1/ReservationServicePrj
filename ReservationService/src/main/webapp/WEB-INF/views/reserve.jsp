@@ -16,6 +16,11 @@
 	content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 <title>네이버 예약</title>
 <link href="../css/style.css" rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/reserve.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
 </head>
 
 <body>
@@ -87,9 +92,11 @@
 									<div class="clearfix">
 										<a href="#"
 											class="btn_plus_minus spr_book2 ico_minus3 disabled"
-											title="빼기"> </a> <input type="tel"
+											title="빼기"> </a> 
+											<input type="tel"
 											class="count_control_input disabled" value="0" readonly
-											title="수량"> <a href="#"
+											title="수량">
+											 <a href="#"
 											class="btn_plus_minus spr_book2 ico_plus3" title="더하기"> </a>
 									</div>
 									<!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
@@ -124,14 +131,15 @@
 											<strong class="product_amount"> <span>S석</span>
 										</c:when>
 									</c:choose>
-									
+									<fmt:parseNumber var="percent" value="${item.discountRate}"
+										integerOnly="true" />
 									</strong> <strong class="product_price"> <span class="price">${item.price}</span>
 										<span class="price_type">원</span>
-									</strong> <em class="product_dsc">10,200원 (15% 할인가)</em>
+									</strong> <em class="product_dsc">${item.price}원 (${percent}% 할인가)</em>
 								</div>
 							</div>
 						</c:forEach>
-						<div class="qty">
+						<!-- <div class="qty">
 							<div class="count_control">
 								<div class="clearfix">
 									<a href="#" class="btn_plus_minus spr_book2 ico_minus3"
@@ -187,7 +195,7 @@
 									<span class="price_type">원</span>
 								</strong> <em class="product_dsc">8,500원 (15% 할인가)</em>
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="section_booking_form">
