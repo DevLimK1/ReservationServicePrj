@@ -1,6 +1,11 @@
 package kr.or.devlimk1.reservationweb.controller;
 
+import java.io.Console;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +32,18 @@ public class ReserveController {
 		List<ProductImageDto> productImages = reservationService.getProductImages(displayInfo.getProductId());
 		List<ProductPriceDto> productPrices=reservationService.getProductPrices(displayInfo.getProductId());
 		
+		
+		Calendar cal=Calendar.getInstance(Locale.KOREA);
+		String reservationDate="";
+		
+		int year=cal.get(cal.YEAR);
+		int month=cal.get(cal.MONTH)+1;
+		int date=cal.get(cal.DATE);
+		date+=Math.floor(Math.random()*6); //0~5까지의 난수를 현재일에 더한다.
+		reservationDate=String.format("%d.%d.%d", year,month,date);
+		System.out.println(reservationDate);
+		
+		model.addAttribute("reservationDate",reservationDate);
 		model.addAttribute("productImages", productImages);
 		model.addAttribute("displayInfo", displayInfo);
 		model.addAttribute("displayInfoImage", displayInfoImage);

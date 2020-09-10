@@ -42,7 +42,7 @@
 		<div class="ct">
 			<div class="ct_wrap">
 				<div class="top_title">
-					<a href="./detail.html" class="btn_back" title="이전 화면으로 이동"> <i
+					<a href="../detail/${displayInfo.displayInfoId}" class="btn_back" title="이전 화면으로 이동"> <i
 						class="fn fn-backward1"></i>
 					</a>
 					<h2>
@@ -58,7 +58,7 @@
 								<div class="preview_txt">
 									<h2 class="preview_txt_tit">${displayInfo.productDescription }</h2>
 									<em class="preview_txt_dsc">₩12,000 ~ </em><em
-										class="preview_txt_dsc">2017.2.17.(금)~2017.4.18.(화), 잔여티켓
+										class="preview_txt_dsc">${reservationDate} ~2020.12.30, 잔여티켓
 										2769매</em>
 								</div></li>
 						</ul>
@@ -92,11 +92,9 @@
 									<div class="clearfix">
 										<a href="#"
 											class="btn_plus_minus spr_book2 ico_minus3 disabled"
-											title="빼기"> </a> 
-											<input type="tel"
+											title="빼기"> </a> <input type="tel"
 											class="count_control_input disabled" value="0" readonly
-											title="수량">
-											 <a href="#"
+											title="수량"> <a href="#"
 											class="btn_plus_minus spr_book2 ico_plus3" title="더하기"> </a>
 									</div>
 									<!-- [D] 금액이 0 이상이면 individual_price에 on_color 추가 -->
@@ -139,63 +137,6 @@
 								</div>
 							</div>
 						</c:forEach>
-						<!-- <div class="qty">
-							<div class="count_control">
-								<div class="clearfix">
-									<a href="#" class="btn_plus_minus spr_book2 ico_minus3"
-										title="빼기"> </a> <input type="tel" class="count_control_input"
-										value="10" readonly title="수량"> <a href="#"
-										class="btn_plus_minus spr_book2 ico_plus3" title="더하기"> </a>
-								</div>
-								<div class="individual_price on_color">
-									<span class="total_price">68,000</span><span class="price_type">원</span>
-								</div>
-							</div>
-							<div class="qty_info_icon">
-								<strong class="product_amount"> <span>유아</span>
-								</strong> <strong class="product_price"> <span class="price">6,800</span>
-									<span class="price_type">원</span>
-								</strong> <em class="product_dsc">6,800원 (15% 할인가)</em>
-							</div>
-						</div>
-						<div class="qty">
-							<div class="count_control">
-								<div class="clearfix">
-									<a href="#" class="btn_plus_minus spr_book2 ico_minus3"
-										title="빼기"> </a> <input type="tel" class="count_control_input"
-										value="3" readonly title="수량"> <a href="#"
-										class="btn_plus_minus spr_book2 ico_plus3" title="더하기"> </a>
-								</div>
-								<div class="individual_price on_color">
-									<span class="total_price">60,000</span><span class="price_type">원</span>
-								</div>
-							</div>
-							<div class="qty_info_icon">
-								<strong class="product_amount"> <span>세트1</span>
-								</strong> <strong class="product_price"> <span class="price">20,000</span>
-									<span class="price_type">원</span>
-								</strong> <em class="product_dsc">2인 관람권 (17% 할인가)</em>
-							</div>
-						</div>
-						<div class="qty">
-							<div class="count_control">
-								<div class="clearfix">
-									<a href="#" class="btn_plus_minus spr_book2 ico_minus3"
-										title="빼기"> </a> <input type="tel" class="count_control_input"
-										value="3" readonly title="수량"> <a href="#"
-										class="btn_plus_minus spr_book2 ico_plus3" title="더하기"> </a>
-								</div>
-								<div class="individual_price on_color">
-									<span class="total_price">25,500</span><span class="price_type">원</span>
-								</div>
-							</div>
-							<div class="qty_info_icon">
-								<strong class="product_amount"> <span>청소년</span>
-								</strong> <strong class="product_price"> <span class="price">8,500</span>
-									<span class="price_type">원</span>
-								</strong> <em class="product_dsc">8,500원 (15% 할인가)</em>
-							</div>
-						</div> -->
 					</div>
 				</div>
 				<div class="section_booking_form">
@@ -222,7 +163,7 @@
 									<div class="inline_control tel_wrap">
 										<input type="tel" name="tel" id="tel" class="tel" value=""
 											placeholder="휴대폰 입력 시 예매내역 문자발송">
-										<div class="warning_msg">형식이 틀렸거나 너무 짧아요</div>
+										<div class="warning_msg">000-0000-0000 형식으로 작성해주세요.</div>
 									</div>
 								</div>
 								<div class="inline_form">
@@ -232,13 +173,14 @@
 									<div class="inline_control">
 										<input type="email" name="email" id="email" class="email"
 											value="" placeholder="crong@codesquad.kr" maxlength="50">
+										<div class="warning_msg">이메일 형식이 틀렸습니다.</div>
 									</div>
 								</div>
 								<div class="inline_form last">
 									<label class="label" for="message">예매내용</label>
 									<div class="inline_control">
 										<p class="inline_txt selected">
-											2017.2.17, 총 <span id="totalCount">0</span>매
+											${reservationDate }, 총 <span id="totalCount">0</span>매
 										</p>
 									</div>
 								</div>
