@@ -1,9 +1,6 @@
 package kr.or.devlimk1.reservationweb.controller;
 
-import java.io.Console;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -12,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import kr.or.devlimk1.reservationweb.dto.DisplayInfoDto;
 import kr.or.devlimk1.reservationweb.dto.DisplayInfoImageDto;
@@ -36,12 +34,11 @@ public class ReserveController {
 		Calendar cal=Calendar.getInstance(Locale.KOREA);
 		String reservationDate="";
 		
-		int year=cal.get(cal.YEAR);
-		int month=cal.get(cal.MONTH)+1;
-		int date=cal.get(cal.DATE);
+		int year=cal.get(Calendar.YEAR);
+		int month=cal.get(Calendar.MONTH)+1;
+		int date=cal.get(Calendar.DATE);
 		date+=Math.floor(Math.random()*6); //0~5까지의 난수를 현재일에 더한다.
 		reservationDate=String.format("%d.%d.%d", year,month,date);
-		System.out.println(reservationDate);
 		
 		model.addAttribute("reservationDate",reservationDate);
 		model.addAttribute("productImages", productImages);
@@ -50,5 +47,10 @@ public class ReserveController {
 		model.addAttribute("productPrices",productPrices);
 		
 		return "reserve";
+	}
+	
+	@PostMapping(path = "/api/reseravtions")
+	public String saveReservationInfo(){
+		
 	}
 }
