@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.devlimk1.reservationweb.dao.ReservationDao;
+import kr.or.devlimk1.reservationweb.dao.ReservationInfoDao;
 import kr.or.devlimk1.reservationweb.dto.Category;
 import kr.or.devlimk1.reservationweb.dto.CommentDto;
 import kr.or.devlimk1.reservationweb.dto.DisplayInfoDto;
@@ -16,6 +17,8 @@ import kr.or.devlimk1.reservationweb.dto.ProductImageDto;
 import kr.or.devlimk1.reservationweb.dto.ProductPriceDto;
 import kr.or.devlimk1.reservationweb.dto.ProductsView;
 import kr.or.devlimk1.reservationweb.dto.PromotionsView;
+import kr.or.devlimk1.reservationweb.dto.ReservationInfoDto;
+import kr.or.devlimk1.reservationweb.dto.ReservationPriceDto;
 import kr.or.devlimk1.reservationweb.service.ReservationService;
 
 @Service
@@ -23,6 +26,9 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	ReservationDao reservationDao;
+	
+	@Autowired
+	ReservationInfoDao reservationInfoDao;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -123,6 +129,33 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		
 		return averageScore;
+	}
+
+//	@Override
+//	@Transactional
+//	public ReservationInfoDto saveReservation(ReservationInfoDto reservationInfo) {
+//		//reservation_info table에 insert
+//		
+//		
+//		//reservation_info_price table에 insert
+//		List<ReservationPriceDto> prices;
+//		prices=reservationInfo.getPrices();
+//		
+//		
+//		return null;
+//	}
+
+	@Override
+	@Transactional
+	public ReservationInfoDto saveReservation(ReservationInfoDto reservationInfo, int reservationInfoId) {
+
+		//reservation_info table에 insert
+		reservationInfoDao.insertReservationInfo(reservationInfo, reservationInfoId);
+		
+		//reservation_info_price table에 insert
+		List<ReservationPriceDto> prices;
+		prices=reservationInfo.getPrices();
+		return null;
 	}
 
 }

@@ -24,6 +24,8 @@
 </head>
 
 <body>
+	<input type="hidden" id="displayInfoId" value="${displayInfo.displayInfoId}">
+	<input type="hidden" id="productId" value="${displayInfo.productId}">
 	<div id="container">
 		<!-- [D] 예약하기로 들어오면 header에 fade 클래스 추가로 숨김 -->
 		<div class="header fade">
@@ -87,6 +89,7 @@
 					<div class="ticket_body">
 						<c:forEach items="${productPrices}" var="item">
 							<div class="qty">
+							<input type="hidden" class="productPriceId" value="${item.productPriceId}">
 								<div class="count_control">
 									<!-- [D] 수량이 최소 값이 일때 ico_minus3, count_control_input에 disabled 각각 추가, 수량이 최대 값일 때는 ico_plus3에 disabled 추가 -->
 									<div class="clearfix">
@@ -146,7 +149,7 @@
 							<div class="agreement_nessasary help_txt">
 								<span class="spr_book ico_nessasary"></span> <span>필수입력</span>
 							</div>
-							<form class="form_horizontal" action="" method="post">
+							<form class="form_horizontal" method="post">
 								<div class="inline_form">
 									<label class="label" for="name"> <span
 										class="spr_book ico_nessasary">필수</span> <span>예매자</span>
@@ -180,8 +183,10 @@
 									<label class="label" for="message">예매내용</label>
 									<div class="inline_control">
 										<p class="inline_txt selected">
-											${reservationDate }, 총 <span id="totalCount">0</span>매
+											<fmt:parseDate value="${reservationDateStr}" var="reservationDate" pattern="yyyy-MM-dd HH:mm:ss"/>
+							<fmt:formatDate value="${reservationDate}" pattern="yyyy.M.dd"/>, 총 <span id="totalCount">0</span>매
 										</p>
+										<input type="hidden" id="reservationDate" value="${reservationDateStr}">
 									</div>
 								</div>
 							</form>

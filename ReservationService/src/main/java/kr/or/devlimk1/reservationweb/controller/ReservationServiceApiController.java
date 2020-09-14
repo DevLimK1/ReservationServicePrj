@@ -21,14 +21,14 @@ import kr.or.devlimk1.reservationweb.dto.PromotionsView;
 import kr.or.devlimk1.reservationweb.dto.RespCategoriesDto;
 import kr.or.devlimk1.reservationweb.service.ReservationService;
 
+//@RequestMapping(path = "/api/")
 @RestController
-@RequestMapping(path = "/api/")
 public class ReservationServiceApiController {
 
 	@Autowired
 	ReservationService reservationService;
 	
-	@GetMapping(path = "promotions")
+	@GetMapping(path = "/api/promotions")
 	public Map<String, Object> getPromotions() {
 		
 		Map<String, Object> map = new HashMap<>();
@@ -41,7 +41,7 @@ public class ReservationServiceApiController {
 		return map;
 	}
 	
-	@GetMapping(path = "categories") // tab 클릭시
+	@GetMapping(path = "/api/categories") // tab 클릭시
 	public RespCategoriesDto getCategories() {
 
 		RespCategoriesDto dto = new RespCategoriesDto();
@@ -54,7 +54,7 @@ public class ReservationServiceApiController {
 		return dto;
 	}
 	
-	@GetMapping(path = "products") // 더보기 클릭시
+	@GetMapping(path = "/api/products") // 더보기 클릭시
 	public Map<String, Object> getProducts(
 			@RequestParam(name = "categoryId", defaultValue = "0") int categoryId,
 			@RequestParam(name = "start", defaultValue = "0") int start) {
@@ -84,7 +84,7 @@ public class ReservationServiceApiController {
 	
 	/*****************detail page****************************/
 	
-	@GetMapping(path = "products/{displayInfoId}")
+	@GetMapping(path = "/api/products/{displayInfoId}")
 	public Map<String, Object> getDisplayInfo(@PathVariable Integer displayInfoId){
 		Map<String, Object> map = new HashMap<>();
 		DisplayInfoDto displayInfo = reservationService.getDisplayInfo(displayInfoId);

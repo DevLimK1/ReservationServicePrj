@@ -5,8 +5,10 @@ window.addEventListener("DOMContentLoaded", function(e) {
 	const bookingAgreement=document.querySelector(".section_booking_agreement");
 	const chkAgree=bookingAgreement.querySelector(".chk_agree");
 	let totalTicketCount=0;
-
-
+	let reservationInfoId=15;
+	let reservationInfoPriceId=19;
+	const counts=document.querySelectorAll(".count_control_input");
+	const productPriceIds=document.querySelectorAll(".productPriceId");
 	
 	//----------티켓 변경--------------//
 	ticketBody.onclick = clickTicketCount;
@@ -176,6 +178,96 @@ window.addEventListener("DOMContentLoaded", function(e) {
 		e.preventDefault();
 		$(e.target).parents(".agreement").toggleClass("open");
 	});
+	
+	
+	bkBtnWrap.onclick=doReservation;
+	
+	function doReservation(e){
+		e.preventDefault();
+		let elem=e.currentTarget;
+		let displayInfoId=parseInt(document.querySelector("#displayInfoId").value);
+		let productId=parseInt(document.querySelector("#productId").value);
+		let reservationDate=document.querySelector("#reservationDate").value;
+		let name="";
+		let email="";
+		let tel="";
+		
+//		if(elem.classList.contains("disable"))
+//			return;
+		
+		let formData=$(".form_horizontal").serializeArray();
+		for(let data in formData){ //예매자 정보 값 추출
+			if(formData[data].name==="name"){
+				name=formData[data].value;
+			}else if(formData[data].name==="tel"){
+				tel=formData[data].value;
+			}else if(formData[data].name==="email"){
+				email=formData[data].value;
+			}
+		}
+		
+		console.log(productId);
+		console.log(displayInfoId);
+		console.log(reservationDate);
+		console.log(name);
+		console.log(email);
+		console.log(tel);
+		
+		const obj={
+				ticketInfo :{
+					count:5,
+					productPriceId:1,
+					reservationInfoId:1,
+					reservationInfoPriceId:1
+					}
+				}
+		
+		
+		
+//		let newObj=Object.keys(obj);
+		console.log(Object.keys(obj));
+		console.log(Object.values(obj));
+		console.log(Object.entries(obj));
+		console.log(counts);
+		
+		for(let i=0;i<counts.length;i++){
+			console.log(counts[i].value);
+			console.log("productPriceId:");
+			console.log(productPriceIds[i].value);
+		}
+//		console.log(newObj);
+//		$.post("/api/reservations",
+//				);
+		let arr=[{
+			 "count": 5,
+		      "productPriceId": 1,
+		      "reservationInfoId": 16,
+		      "reservationInfoPriceId": 20
+		},{
+			"count": 2,
+		      "productPriceId": 2,
+		      "reservationInfoId": 16,
+		      "reservationInfoPriceId": 21
+		}];
+		console.log(arr);
+		
+		$.ajax({
+			type:"POST",
+			url: "/api/reservations",
+//			traditional : true,
+			contentType: "application/json; charset=utf-8;",
+			dataType: "json",
+			data:JSON.stringify({
+				"displayInfoId": displayInfoId,
+				  "prices": arr,
+				  "productId": productId,
+				  "reservationEmail": email,
+				  "reservationName": name,
+				  "reservationTelephone": tel,
+				  "reservationYearMonthDay":reservationDate 
+			})
+		});
+	}
 	
 	
 	

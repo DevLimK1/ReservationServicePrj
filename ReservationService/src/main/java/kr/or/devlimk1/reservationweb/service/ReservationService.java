@@ -11,6 +11,7 @@ import kr.or.devlimk1.reservationweb.dto.ProductImageDto;
 import kr.or.devlimk1.reservationweb.dto.ProductPriceDto;
 import kr.or.devlimk1.reservationweb.dto.ProductsView;
 import kr.or.devlimk1.reservationweb.dto.PromotionsView;
+import kr.or.devlimk1.reservationweb.dto.ReservationInfoDto;
 
 public interface ReservationService {
 	public static final Integer PRODUCTS_VIEW_LIMIT=4; //Map의 키와 값은 객체여야함으로 Integer 
@@ -29,5 +30,8 @@ public interface ReservationService {
 	public List<CommentDto> getComments(Integer productId);
 	public List<ProductPriceDto> getProductPrices(Integer productId);
 	public double getAverageScore(List<CommentDto> comments);
+	
+	/**************reserve page**********************/
+	public ReservationInfoDto saveReservation(ReservationInfoDto reservationInfo,int reservationInfoId);
 	
 }

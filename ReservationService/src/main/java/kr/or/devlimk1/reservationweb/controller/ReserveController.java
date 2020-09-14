@@ -31,16 +31,22 @@ public class ReserveController {
 		List<ProductPriceDto> productPrices=reservationService.getProductPrices(displayInfo.getProductId());
 		
 		
+			
+		//-----------날짜 변경--------------//
 		Calendar cal=Calendar.getInstance(Locale.KOREA);
-		String reservationDate="";
+		String reservationDateStr="";
 		
 		int year=cal.get(Calendar.YEAR);
 		int month=cal.get(Calendar.MONTH)+1;
 		int date=cal.get(Calendar.DATE);
-		date+=Math.floor(Math.random()*6); //0~5까지의 난수를 현재일에 더한다.
-		reservationDate=String.format("%d.%d.%d", year,month,date);
+		int hour=Calendar.HOUR;
+		int minute=Calendar.MINUTE;
+		int second=Calendar.SECOND;
 		
-		model.addAttribute("reservationDate",reservationDate);
+		date+=Math.floor(Math.random()*6); //0~5까지의 난수를 현재일에 더한다.
+		reservationDateStr=String.format("%d-%d-%d %d:%d:%d", year,month,date,hour,minute,second);
+		
+		model.addAttribute("reservationDateStr",reservationDateStr);
 		model.addAttribute("productImages", productImages);
 		model.addAttribute("displayInfo", displayInfo);
 		model.addAttribute("displayInfoImage", displayInfoImage);
@@ -49,8 +55,5 @@ public class ReserveController {
 		return "reserve";
 	}
 	
-	@PostMapping(path = "/api/reseravtions")
-	public String saveReservationInfo(){
-		
-	}
+
 }
