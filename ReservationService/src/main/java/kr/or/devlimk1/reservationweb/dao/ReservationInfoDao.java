@@ -17,52 +17,54 @@ import kr.or.devlimk1.reservationweb.dto.ReservationPriceDto;
 
 @Repository
 public class ReservationInfoDao {
-//	private NamedParameterJdbcTemplate jdbc;
-//    private SimpleJdbcInsert insertAction;
+	
 	private JdbcTemplate jdbcTemplate;
 	
 	public ReservationInfoDao(DataSource dataSource) {
-//        this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-//        this.insertAction = new SimpleJdbcInsert(dataSource)
-//                .withTableName("log")
-//                .usingGeneratedKeyColumns("id");
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public int insertReservationInfo(ReservationInfoDto reservationInfo, int reservationInfoId) {
-		int result = jdbcTemplate.update(INSERT_RESERVATION_INFO, reservationInfoId, reservationInfo.getProductId(),
-				reservationInfo.getDisplayInfoId(), reservationInfo.getReservationName(),
-				reservationInfo.getReservationTelephone(), reservationInfo.getReservationEmail(),
-				reservationInfo.getReservationYearMonthDay(), reservationInfo.getReservationYearMonthDay(),
-				reservationInfo.getReservationYearMonthDay());
-
-//		SqlParameterSource params = new BeanPropertySqlParameterSource(reservationInfo);
-//		return insertAction.executeAndReturnKey(params).longValue();
-//		INSERT_RESERVATION_INFO
+	public int insertReservationInfo(ReservationInfoDto reservationInfo,List<ReservationPriceDto> prices, int reservationInfoId) {
 		
-		return result;
-	}
-
-	public void insertReservationInfoPrice(List<ReservationPriceDto> prices) {
-		try (Connection con= jdbcTemplate.getDataSource().getConnection();
-				PreparedStatement pstmt = con.prepareStatement("INSERT INTO reservation_info_price VALUES(?,?,?,?)")) {
+		int insertResult=0;
+		
+		try(Connection con= jdbcTemplate.getDataSource().getConnection();
+				PreparedStatement pstmt = con.prepareStatement(INSERT_RESERVATION_INFO);
+						PreparedStatement pstmt2 = con.prepareStatement("INSERT INTO reservation_info_price VALUES(?,?,?,?)")){
 			con.setAutoCommit(false);
 			
+			//reservation_info table
+			pstmt.setInt(1, reservationInfoId);
+			pstmt.setInt(2, reservationInfo.getProductId());
+			pstmt.setInt(3, reservationInfo.getDisplayInfoId());
+			pstmt.setString(4, reservationInfo.getReservationName());
+			pstmt.setString(5, reservationInfo.getReservationTelephone());
+			pstmt.setString(6, reservationInfo.getReservationEmail());
+			pstmt.setString(7, reservationInfo.getReservationYearMonthDay());
+			pstmt.setString(8, reservationInfo.getReservationYearMonthDay());
+			pstmt.setString(9, reservationInfo.getReservationYearMonthDay());
+			
+			insertResult = pstmt.executeUpdate();
+
+			//reservation_info_price table
 			for (ReservationPriceDto price : prices) {
-				pstmt.setInt(1, price.getReservationInfoPriceId());	
-				pstmt.setInt(2, price.getReservationInfoId());
-				pstmt.setInt(3, price.getProductPriceId());
-				pstmt.setInt(4, price.getCount());
-				pstmt.addBatch();
+				pstmt2.setInt(1, price.getReservationInfoPriceId());	
+				pstmt2.setInt(2, price.getReservationInfoId());
+				pstmt2.setInt(3, price.getProductPriceId());
+				pstmt2.setInt(4, price.getCount());
+				pstmt2.addBatch();
 			}
 			
-			pstmt.executeBatch();
+			pstmt2.executeBatch();
+			
 			con.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("insertReservationInfoPrice complete");
+		
+		
+		return insertResult;
 	}
-	
+
 	
 }
