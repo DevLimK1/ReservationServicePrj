@@ -12,6 +12,7 @@ import kr.or.devlimk1.reservationweb.dto.ProductPriceDto;
 import kr.or.devlimk1.reservationweb.dto.ProductsView;
 import kr.or.devlimk1.reservationweb.dto.PromotionsView;
 import kr.or.devlimk1.reservationweb.dto.ReservationInfoDto;
+import kr.or.devlimk1.reservationweb.dto.ReservationPriceDto;
 
 public interface ReservationService {
 	public static final Integer PRODUCTS_VIEW_LIMIT=4; //Map의 키와 값은 객체여야함으로 Integer 
@@ -33,5 +34,6 @@ public interface ReservationService {
 	
 	/**************reserve page**********************/
 	public ReservationInfoDto saveReservation(ReservationInfoDto reservationInfo,int reservationInfoId);
+	public void saveReservation(List<ReservationPriceDto> prices);
 	
 }

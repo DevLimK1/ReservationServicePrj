@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.devlimk1.reservationweb.dao.ReservationDao;
@@ -26,7 +27,7 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	ReservationDao reservationDao;
-	
+
 	@Autowired
 	ReservationInfoDao reservationInfoDao;
 
@@ -120,42 +121,35 @@ public class ReservationServiceImpl implements ReservationService {
 	public double getAverageScore(List<CommentDto> comments) {
 		double sum = 0.0;
 		double averageScore = 0.0;
-		
-		if (comments.size()!=0) {
+
+		if (comments.size() != 0) {
 			for (CommentDto comment : comments) {
 				sum += comment.getScore();
 			}
 			averageScore = sum / comments.size();
 		}
-		
+
 		return averageScore;
 	}
-
-//	@Override
-//	@Transactional
-//	public ReservationInfoDto saveReservation(ReservationInfoDto reservationInfo) {
-//		//reservation_info table에 insert
-//		
-//		
-//		//reservation_info_price table에 insert
-//		List<ReservationPriceDto> prices;
-//		prices=reservationInfo.getPrices();
-//		
-//		
-//		return null;
-//	}
 
 	@Override
 	@Transactional
 	public ReservationInfoDto saveReservation(ReservationInfoDto reservationInfo, int reservationInfoId) {
+		List<ReservationPriceDto> prices = reservationInfo.getPrices();
+		// reservation_info table에 insert
+		int result = reservationInfoDao.insertReservationInfo(reservationInfo, reservationInfoId);
 
-		//reservation_info table에 insert
-		reservationInfoDao.insertReservationInfo(reservationInfo, reservationInfoId);
+		System.out.println("insertReservationInfo result: " + result);
 		
-		//reservation_info_price table에 insert
-		List<ReservationPriceDto> prices;
-		prices=reservationInfo.getPrices();
+		System.out.println("complete");
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public void saveReservation(List<ReservationPriceDto> prices) {
+			reservationInfoDao.insertReservationInfoPrice(prices);
+			
 	}
 
 }

@@ -23,6 +23,8 @@ public class ReserveApiController {
 		int reservationInfoId=reservationInfo.getPrices().get(0).getReservationInfoId();//예약 id
 		
 		reservationService.saveReservation(reservationInfo,reservationInfoId);
+		reservationService.saveReservation(reservationInfo.getPrices());
+		
 		System.out.println(reservationInfo);
 		return view;
 	}
