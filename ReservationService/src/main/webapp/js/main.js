@@ -95,10 +95,6 @@ window.addEventListener("DOMContentLoaded", function() {
 	let template = document.querySelector('#itemListCount').innerHTML;
 	
 
-	sectionEventLst.onclick = function(e) {
-//		e.preventDefault();
-	}
-
 	eventTabLst.onclick = function(e) { // 카테고리 탭 클릭
 		let elem = e.target;
 		let activeElem = e.target;
@@ -292,17 +288,5 @@ window.addEventListener("DOMContentLoaded", function() {
 	}
 	
 
-	/**************** detail page **************************/
-	let wrapEventBox=document.querySelector('.wrap_event_box');
-	
-//	wrapEventBox.onclick=clickItem;
-//	
-//	function clickItem(e){
-//		e.preventDefault();
-//		
-//		console.log(e.target);
-//	}
-	
-	
 
 });

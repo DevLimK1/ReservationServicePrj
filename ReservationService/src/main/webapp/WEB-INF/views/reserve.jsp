@@ -156,7 +156,7 @@
 									</label>
 									<div class="inline_control">
 										<input type="text" name="name" id="name" class="text"
-											placeholder="네이버" maxlength="17">
+											placeholder="이름을 입력해주세요." maxlength="17">
 									</div>
 								</div>
 								<div class="inline_form">
@@ -175,7 +175,7 @@
 									</label>
 									<div class="inline_control">
 										<input type="email" name="email" id="email" class="email"
-											value="" placeholder="crong@codesquad.kr" maxlength="50">
+											value="" placeholder="xxx@email.com" maxlength="50">
 										<div class="warning_msg">이메일 형식이 틀렸습니다.</div>
 									</div>
 								</div>

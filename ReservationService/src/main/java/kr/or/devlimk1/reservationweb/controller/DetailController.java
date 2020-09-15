@@ -29,10 +29,12 @@ public class DetailController {
 		List<CommentDto> comments = reservationService.getComments(displayInfo.getProductId());
 		List<ProductPriceDto> productPrices = reservationService.getProductPrices(displayInfo.getProductId());
 		double averageScore = reservationService.getAverageScore(comments);
-
+		System.out.println("averageScore: "+averageScore);
 		// 백분율 환산
 		averageScore = Math.floor(averageScore * 10) / 10.0; // 첫째자리까지
+		System.out.println("환산후 averageScore:"+averageScore);
 		int valueWidth = (int) (averageScore * 100 / 5.0);
+		System.out.println("valueWidth:"+valueWidth);
 		int cmtCount = comments.size();
 
 		model.addAttribute("displayInfoId", displayInfoId);

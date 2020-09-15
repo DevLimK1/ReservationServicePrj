@@ -43,7 +43,7 @@
 							class="fn fn-backward1"></i>
 						</a>
 						<h2>
-							<a class="title" href="#">오디컴퍼니 주식회사</a>
+							<a class="title" href="#">경원 주식회사</a>
 						</h2>
 					</div>
 				</div>
