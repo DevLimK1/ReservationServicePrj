@@ -134,14 +134,10 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	@Transactional
-	public ReservationInfoDto saveReservation(ReservationInfoDto reservationInfo, int reservationInfoId) {
+	public void saveReservation(ReservationInfoDto reservationInfo, int reservationInfoId) {
 		List<ReservationPriceDto> prices = reservationInfo.getPrices();
 		// reservation_info table에 insert
-		int result = reservationInfoDao.insertReservationInfo(reservationInfo,prices, reservationInfoId);
-		
-		System.out.println("complete");
-		return null;
+		reservationInfoDao.insertReservationInfo(reservationInfo, prices, reservationInfoId);
 	}
-
 
 }

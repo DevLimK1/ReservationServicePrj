@@ -24,8 +24,7 @@ public class ReservationInfoDao {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public int insertReservationInfo(ReservationInfoDto reservationInfo,List<ReservationPriceDto> prices, int reservationInfoId) {
-		
+	public void insertReservationInfo(ReservationInfoDto reservationInfo,List<ReservationPriceDto> prices, int reservationInfoId) {
 		int insertResult=0;
 		
 		try(Connection con= jdbcTemplate.getDataSource().getConnection();
@@ -63,7 +62,6 @@ public class ReservationInfoDao {
 		}
 		
 		
-		return insertResult;
 	}
 
 	

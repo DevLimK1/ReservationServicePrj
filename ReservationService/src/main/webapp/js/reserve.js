@@ -266,7 +266,11 @@ window.addEventListener("DOMContentLoaded", function(e) {
 				  "reservationTelephone": tel,
 				  "reservationYearMonthDay":reservationDate 
 			})
-		});
+		}).done(function(res) {
+			location.href=res.url; //redirect: /detail/displayInfoId
+		}).fail(function(error) {
+			console.log(error);
+		})
 	}
 	
 	
